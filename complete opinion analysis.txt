@@ -1,0 +1,51 @@
+import re
+from collections import Counter
+
+
+#for line in ReadFile:
+openedFile = open("opinions_whatsapp.txt", "r") #openedFile= open("D:\\myfiles\welcome.txt", "r")
+ReadFile = openedFile.read()
+#print(ReadFile)
+
+# Convert to long string setences remove  the formatting
+#repalced newline \n with sp characheter
+replacedTEXT = ReadFile.replace("\n", ":").replace("\r", ":")
+#print(replacedTEXT)
+
+#removed all punctuations and sp characheter with space
+cleanedtext   =  re.sub("[^a-zA-Z0-9\s]", " " ,replacedTEXT )
+#print(cleanedtext)
+
+loweredcaseText   = cleanedtext.lower()
+#print(loweredcase)
+
+#find specfi  word  no nothing nobody
+findWord = re.findall('no',loweredcaseText)
+print(findWord)
+SPwordsCounted  = Counter(findWord) #count words
+print(SPwordsCounted)
+
+#allowed space after no :sace indicate new word
+findWord2 = re.findall('no\s',loweredcaseText)
+print(findWord2)
+SPwordsCounted2  = Counter(findWord2) #count words
+print(SPwordsCounted2)
+
+#every space between words split to single item
+convertedTOword = loweredcaseText.split(" ")
+print(convertedTOword)
+
+#count words and frequency of word 
+wordsCounted  = Counter(convertedTOword)
+print(wordsCounted)
+
+#how to count  specific word "no" in a list  called "convertedTOword"
+noholder =  []   # to hold 'no' words
+convertedTOword = loweredcaseText.split(" ")
+for i in convertedTOword:
+    if i == 'no':
+        noholder.append(i)
+        print(i)
+print(noholder)
+noholderCounted  = Counter(noholder)
+print(noholderCounted)
